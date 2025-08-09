@@ -1,0 +1,9 @@
+modelo,nombre_experimento,capas,activaciones,learning_rate,epochs,final_loss,umbral_optimo,accuracy,precision,recall,f1_score
+Red Neuronal,Arch_1,"[13, 16, 8, 1]","['relu', 'relu', 'sigmoid']",0.05,500,0.0020521982733638514,0.1,0.9849,0.006993006993006993,0.1,0.013071895424836602
+Red Neuronal,Arch_2_wider,"[13, 32, 16, 1]","['relu', 'relu', 'sigmoid']",0.05,500,0.0023613500743756583,0.0,0.001,0.001,1.0,0.001998001998001998
+Red Neuronal,Arch_3_narrow,"[13, 8, 4, 1]","['relu', 'relu', 'sigmoid']",0.05,500,0.015124183317760432,0.22,0.9994,1.0,0.4,0.5714285714285714
+Red Neuronal,Act_Tanh,"[13, 16, 8, 1]","['tanh', 'tanh', 'sigmoid']",0.05,500,0.003649396773859961,0.14,0.9968,0.10714285714285714,0.3,0.15789473684210525
+Red Neuronal,LR_High,"[13, 16, 8, 1]","['relu', 'relu', 'sigmoid']",0.1,500,0.001399440184077062,0.07,0.99,0.010869565217391304,0.1,0.0196078431372549
+Red Neuronal,LR_Low,"[13, 16, 8, 1]","['relu', 'relu', 'sigmoid']",0.001,500,0.10375253983911698,0.58,0.9584,0.0024509803921568627,0.1,0.004784688995215311
+Red Neuronal,Epochs_High,"[13, 16, 8, 1]","['relu', 'relu', 'sigmoid']",0.05,1000,0.001399457800111404,0.07,0.99,0.010869565217391304,0.1,0.0196078431372549
+Regresión Logística,Baseline,N/A,N/A,N/A,N/A,N/A,0.2,0.9996,0.875,0.7,0.7777777777777778

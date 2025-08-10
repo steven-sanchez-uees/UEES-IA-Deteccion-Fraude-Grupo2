@@ -48,3 +48,38 @@ La implementación en `NumPy` fue exitosa para fines educativos, pero los result
 * **Migración a un Framework**: El modelo debe ser re-implementado en **TensorFlow** o **PyTorch** para aprovechar la aceleración por GPU, el `autodiff` y los optimizadores avanzados (como Adam), que permitirán un entrenamiento más eficiente y estable.
 * **Modelos de Detección de Anomalías**: La siguiente etapa será reemplazar el modelo de clasificación binaria por un **Autoencoder** o un **Isolation Forest**. Un Autoencoder es especialmente adecuado para este problema, ya que aprende a reconstruir los patrones de las transacciones normales y cualquier transacción que no pueda reconstruir (es decir, el fraude) es marcada como una anomalía.
 * **Explicabilidad (XAI)**: Para cumplir con los requisitos regulatorios, se integrarán librerías como **SHAP** para generar valores de explicabilidad. Estos valores permitirán entender por qué el modelo marca una transacción como fraudulenta, proporcionando una herramienta esencial para los analistas de negocio y de riesgo.
+
+
+## 5. Análisis de Resultados
+
+## 5.1 Resumen ejecutivo
+
+Comparamos varias configuraciones de red neuronal (variando arquitectura y activaciones) contra un baseline de Regresión Logística. El mejor modelo fue la configuración con mayor capacidad (capas ocultas más anchas) y activación ReLU en capas internas con sigmoid en la salida; este modelo ofreció el mejor F1 y un equilibrio razonable entre precisión y recall, superando a la línea base.
+A nivel operativo, el ajuste de umbral de decisión fue determinante para priorizar recall/sensibilidad (minimizar falsos negativos), consistente con el objetivo de negocio en fraude.
+
+## 5.2 Comparación de arquitecturas y activaciones
+
+* Arquitecturas más anchas (p. ej., [input → 32 → 16 → 1]) capturan mejor la no linealidad del problema, logrando F1 superior a configuraciones más estrechas (p. ej., [input → 16 → 8 → 1]).
+* Activaciones: ReLU en ocultas converge de forma estable; tanh funciona pero suele requerir más épocas o ajustes de LR para igualar a ReLU.
+* Tasa de aprendizaje: valores intermedios (p. ej., 0.05) facilitaron la convergencia sin inestabilidad; tasas muy bajas alargan el entrenamiento sin mejoras claras, y tasas muy altas pueden oscilar.
+
+## 5.3 Curvas de entrenamiento y estabilidad
+
+Las training_curve_*.png muestran reducción de MSE por época, coherente con la estabilización del entrenamiento. Para clasificación, recomendamos además monitorear F1 o Recall en validación e implementar early stopping en el proyecto final para evitar sobreajuste y reducir cómputo.
+
+## 5.4 Umbral óptimo y trade-offs de negocio
+
+El gráfico threshold_curves_best.png ilustra el trade-off entre precisión y recall.
+* En fraude, el costo de falsos negativos (FN) suele ser más alto (fraudes no detectados). Por ello es razonable mover el umbral hacia valores que aumenten el recall, asumiendo un incremento de falsos positivos (FP) manejable mediante revisión automática o reglas adicionales.
+* El umbral óptimo reportado en performance_comparison.csv es el que maximiza F1, pero la operación final puede requerir un umbral diferente, alineado al costo del negocio
+
+## 5.5 Matriz de confusión y errores característicos
+
+confusion_matrix_best.png permite cuantificar FP y FN en el punto operativo seleccionado.
+* El umbral óptimo reportado en performance_comparison.csv es el que maximiza F1, pero la operación final puede requerir un umbral diferente, alineado al costo del negocioSi observamos FN aún elevados, proponemos: (i) desplazar umbral hacia mayor recall, (ii) re-ponderar la función objetivo (cost-sensitive), (iii) enriquecer features (ej. secuencias temporales) y (iv) añadir regularización.
+
+## 5.6 Conclusiones prácticas
+* La RNA supera a la Regresión Logística en F1, confirmando que el problema es no lineal.
+* Mayor capacidad del modelo (capas más anchas) ayuda, pero requiere regularización y early stopping para robustez.
+* La optimización del umbral es clave para alinear el desempeño con los costos reales (FN vs. FP).
+* Para escalar a datos reales y mayor volumen, avanzaremos a TensorFlow/PyTorch con GPU, autograd, pipelines y XAI (SHAP), además de explorar Autoencoders para detección de anomalías.

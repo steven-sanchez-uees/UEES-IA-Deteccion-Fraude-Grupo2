@@ -68,7 +68,6 @@ Si bien el prototipo es funcional y didáctico, presenta limitaciones para un de
 ## Plan de transición a frameworks avanzados
 
 Para el proyecto final, que trabajará con datos reales de detección de fraude en telecomunicaciones con alto volumen y necesidad de respuesta rápida, se plantea la migración a TensorFlow o PyTorch, lo que permitirá:
-
     * Aprovechar GPU/TPU para acelerar el entrenamiento.
     * Utilizar autograd para backprop automático y evitar errores manuales.
     * Implementar arquitecturas más complejas (modelos híbridos con embeddings y datos numéricos).

@@ -53,9 +53,43 @@ La metodología del proyecto se centra en un flujo de trabajo claro:
 
 Los resultados detallados de estos experimentos, incluyendo las métricas de rendimiento y las matrices de confusión, se encuentran en el `informe_tecnico.md` y en la carpeta `results/`. El análisis final de estos resultados es crucial para determinar la viabilidad y las limitaciones de nuestra implementación.
 
+## Conexión con Proyecto Final y Hoja de Ruta de Mejoras
+
+La implementación actual de la red neuronal fue desarrollada desde cero utilizando únicamente NumPy, lo que permitió comprender en detalle cada etapa del proceso: inicialización de pesos con métodos Xavier/He, forward propagation, cálculo de pérdidas, backpropagation manual y optimización mediante gradient descent con ajuste de umbrales para mejorar la detección de fraude. Este enfoque es ideal como prueba de concepto académica y para prototipos en datasets sintéticos o de tamaño reducido, sirviendo como base sólida para el proyecto final.
+
+## Limitaciones y Escalabilidad
+
+Si bien el prototipo es funcional y didáctico, presenta limitaciones para un despliegue productivo:
+    * ** Eficiencia computacional ** : el entrenamiento es secuencial y no aprovecha GPU ni procesamiento paralelo, lo que limita la capacidad de manejar grandes volúmenes de transacciones en tiempo real.
+    * ** Manejo de datos a gran escala **: la carga completa en memoria no es viable para millones de registros.
+    Falta de técnicas avanzadas como early stopping, regularización (Dropout, BatchNorm) o ajuste adaptativo de la tasa de aprendizaje.
+    * ** Pipeline de datos básico **: apto para datos limpios y estructurados, pero no para escenarios complejos con streaming o fuentes heterogéneas.
+
+## Plan de transición a frameworks avanzados
+
+Para el proyecto final, que trabajará con datos reales de detección de fraude en telecomunicaciones con alto volumen y necesidad de respuesta rápida, se plantea la migración a TensorFlow o PyTorch, lo que permitirá:
+
+    Aprovechar GPU/TPU para acelerar el entrenamiento.
+    Utilizar autograd para backprop automático y evitar errores manuales.
+    Implementar arquitecturas más complejas (modelos híbridos con embeddings y datos numéricos).
+    Integrar pipelines robustos para el manejo y preprocesamiento eficiente de datos.
+    Aplicar técnicas avanzadas de regularización y optimización.
+
 ## Hoja de Ruta para Mejoras Continuas
 
 Este proyecto es una prueba de concepto. Para llevarlo a un entorno de producción, se necesitarían mejoras significativas. El siguiente paso en la hoja de ruta incluye:
 * **Migración a Frameworks (TensorFlow/PyTorch)**: Para aprovechar la aceleración por GPU y las optimizaciones de los frameworks modernos.
 * **Modelos Avanzados**: Explorar arquitecturas como los `Autoencoders`, que son especialmente potentes para la detección de anomalías y la identificación de patrones de fraude complejos.
 * **Modelos Explicables (XAI)**: Implementar librerías como SHAP para generar modelos que no solo detecten el fraude, sino que también expliquen por qué una transacción fue marcada como sospechosa, cumpliendo así con las normativas del sector financiero.
+* 
+
+## Componentes reutilizables
+
+De la implementación actual se pueden trasladar directamente:
+
+    Preprocesamiento de datos (data_preprocessing.py), que estandariza y codifica variables categóricas de forma eficiente.
+    Funciones métricas y cálculo de umbral óptimo para maximizar sensibilidad o F1-score.
+    Estructura modular y configuración de experimentos (experiments.py), que permite comparar arquitecturas y parámetros.
+    Documentación y organización del repositorio, lista para integrarse en un framework más avanzado.
+
+En síntesis, el trabajo desarrollado no solo cumple como ejercicio académico, sino que establece la base técnica y metodológica para evolucionar hacia un sistema escalable, preciso y explicable, capaz de operar en entornos de alta demanda y con datos reales de fraude.

@@ -14,7 +14,7 @@ La estructura del repositorio está diseñada para ser modular y escalable, faci
 │   └── datos_sinteticos_fraude.csv
 │
 ├── docs/
-│   └── informe_tecnico.md
+│   └── reporte_tecnico.md
 │
 ├── notebooks/
 │   ├── 01_implementacion_red.ipynb

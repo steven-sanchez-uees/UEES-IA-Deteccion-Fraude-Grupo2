@@ -50,29 +50,29 @@ La estructura del repositorio está diseñada para ser modular y escalable, faci
         # Implementación manual de la red neuronal.
 ````
 
-## Metodología y Resultados
+## Metodología y Alcance
 
 La metodología del proyecto se centra en un flujo de trabajo claro:
-1. **Implementación de Componentes**: Creación de los módulos principales de la red neuronal y preprocesamiento de datos.
-2. **Generación de Datos**: Simulación de un conjunto de datos desequilibrado para el problema de fraude.
-3. **Entrenamiento y Evaluación**: Entrenamiento del modelo con los datos sintéticos, con un enfoque en la optimización del umbral de clasificación para maximizar métricas como el `F1-Score`.
-4. **Análisis Comparativo**: Se compararon diferentes arquitecturas de red neuronal y variaciones de hiperparámetros contra una **línea de base** de Regresión Logística.
+1. Implementación de la RNA desde cero, incluyendo módulos de preprocesamiento, inicialización de pesos (He/Xavier), forward/backpropagation y optimización con ajuste de umbral para maximizar el `F1-Score`.
+2. Simulación de datos de fraude con fuerte desbalance de clases para replicar un escenario real.
+3. Entrenamiento y evaluación comparando diversas arquitecturas y parámetros frente a un modelo baseline de Regresión Logística.
+4. Análisis de resultados con métricas críticas (precisión, recall, F1) y matrices de confusión.
 
-Los resultados detallados de estos experimentos, incluyendo las métricas de rendimiento y las matrices de confusión, se encuentran en el `informe_tecnico.md` y en la carpeta `results/`. El análisis final de estos resultados es crucial para determinar la viabilidad y las limitaciones de nuestra implementación.
+Los resultados detallados y gráficas comparativas se encuentran en `docs/reporte_tecnico.md` y en la carpeta `results/`.
 
 ## Hallazgos Claves
-* El baseline de Regresión Logística superó a las configuraciones actuales de la RNA en F1-Score, gracias a su simplicidad y optimización interna.
-* La mejor RNA alcanzó precisión perfecta (1.0) pero con recall limitado, detectando menos fraudes de los deseados.
+* El baseline de Regresión Logística superó a las configuraciones actuales de la RNA en `F1-Score`, gracias a su simplicidad y optimización interna.
+* La mejor RNA alcanzó precisión perfecta `(1.0)` pero con recall limitado, detectando menos fraudes de los deseados.
 * La optimización del umbral de decisión se confirmó como un factor crítico para balancear costos de falsos negativos y falsos positivos.
-* Arquitecturas más anchas y ReLU en capas ocultas mejoran la capacidad de detección, pero requieren regularización y early stopping para evitar sobreajuste.
+* Arquitecturas más anchas y `ReLU` en capas ocultas mejoran la capacidad de detección, pero requieren regularización y early stopping para evitar sobreajuste.
 
 ## Limitaciones y Escalabilidad
 
 Si bien el prototipo es funcional y didáctico, presenta limitaciones para un despliegue productivo:
-*  **Eficiencia computacional**: el entrenamiento es secuencial y no aprovecha GPU ni procesamiento paralelo, lo que limita la capacidad de manejar grandes volúmenes de transacciones en tiempo real.
-* **Manejo de datos a gran escala**: la carga completa en memoria no es viable para millones de registros.
-    Falta de técnicas avanzadas como early stopping, regularización (Dropout, BatchNorm) o ajuste adaptativo de la tasa de aprendizaje.
-* **Pipeline de datos básico**: apto para datos limpios y estructurados, pero no para escenarios complejos con streaming o fuentes heterogéneas.
+* **Eficiencia:** entrenamiento secuencial sin uso de GPU, poco viable para grandes volúmenes o tiempo real.
+* **Escalabilidad:** carga completa en memoria, no apto para millones de registros.
+* **Pipeline:** diseñado para datos limpios y estructurados, sin soporte para streaming o fuentes heterogéneas.
+* **Optimización:** sin técnicas avanzadas como batch normalization, dropout o ajuste adaptativo de la tasa de aprendizaje.
 
 ## Plan de transición a frameworks avanzados
 
@@ -96,9 +96,13 @@ Este proyecto es una prueba de concepto. Para llevarlo a un entorno de producci�
 
 De la implementación actual se pueden trasladar directamente:
 
-* Preprocesamiento de datos (data_preprocessing.py), que estandariza y codifica variables categóricas de forma eficiente.
-* Funciones métricas y cálculo de umbral óptimo para maximizar sensibilidad o F1-score.
-* Estructura modular y configuración de experimentos (experiments.py), que permite comparar arquitecturas y parámetros.
-* Documentación y organización del repositorio, lista para integrarse en un framework más avanzado.
+* Preprocesamiento modular (`data_preprocessing.py`): estandarización y codificación eficiente de variables.
+* Cálculo de umbral óptimo para maximizar sensibilidad o F1-Score según objetivos de negocio.
+* Framework de experimentos (`experiments.py`): permite comparar arquitecturas y parámetros con facilidad.
+* Documentación estructurada lista para integrarse en un desarrollo más avanzado.
 
-En síntesis, el trabajo desarrollado no solo cumple como ejercicio académico, sino que establece la base técnica y metodológica para evolucionar hacia un sistema escalable, preciso y explicable, capaz de operar en entornos de alta demanda y con datos reales de fraude.
+## Conclusión
+
+El prototipo desarrollado cumple su objetivo como prueba de concepto, permitiendo implementar desde cero una red neuronal artificial aplicada a la detección de fraude y comprendiendo en profundidad sus fundamentos técnicos. La experimentación evidenció fortalezas —como la alta precisión— y limitaciones en recall y escalabilidad, señalando la necesidad de optimización y migración a frameworks como TensorFlow o PyTorch para entornos productivos.
+
+El análisis comparativo con un baseline de Regresión Logística confirmó que, si bien la RNA es competitiva, requiere mejoras para operar con grandes volúmenes de datos y en tiempo real. El proyecto deja como legado componentes modulares reutilizables y un marco metodológico validado, constituyendo una base sólida para evolucionar hacia un sistema de detección de fraude escalable, preciso y explicable, alineado con los objetivos del negocio y las exigencias regulatorias.

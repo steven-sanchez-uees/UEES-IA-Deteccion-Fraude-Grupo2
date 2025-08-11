@@ -2,33 +2,39 @@
 
 ## 1. Introducción y Metodología
 
- objetivo principal de este proyecto es la implementación de una **Red Neuronal Artificial (RNA)** desde cero, utilizando únicamente la librería `NumPy`, para la detección de fraude en transacciones financieras. El enfoque se basa en la simulación de un entorno real, donde las transacciones fraudulentas (`clase 1`) son una clase minoritaria (0.1%) y el principal problema es el desequilibrio de clases.
+El objetivo de este proyecto es desarrollar una **Red Neuronal Artificial (RNA)** implementada íntegramente desde cero con `NumPy`, orientada a la detección de fraude en transacciones financieras. El escenario de trabajo replica un entorno real donde las transacciones fraudulentas (`clase 1`) representan apenas un **0,1%** del total, lo que plantea un fuerte desafío debido al **desequilibrio de clases**.
 
 La metodología de trabajo se divide en tres fases principales:
-1. **Implementación y Validación de la RNA**: Se codificó una red neuronal `feedforward` con soporte para múltiples capas ocultas, funciones de activación (`ReLU`, `Tanh`, `Sigmoid`), inicialización de pesos (He y Xavier), y los algoritmos de propagación hacia adelante y atrás. La validación se realizó con el problema clásico XOR, confirmando la capacidad del modelo para aprender relaciones no lineales (ver el archivo `notebooks/01_implementacion_red.ipynb` y la curva de pérdida en `results/training_curves_xor.png`).
-2. **Aplicación a la Detección de Fraude**: Se generaron datos sintéticos con características representativas de transacciones y se entrenó la RNA, optimizando el umbral de clasificación para maximizar el `F1-Score`. La evaluación se centró en métricas clave para la industria financiera, como la `precisión`, el `recall` (sensibilidad) y la matriz de confusión.
-3. **Experimentación Comparativa**: Se comparó el rendimiento de múltiples configuraciones de la RNA (variando capas, activaciones, tasa de aprendizaje y épocas) contra un modelo de referencia (`baseline`), la **Regresión Logística** de `scikit-learn`, para validar la eficacia del modelo implementado.
+
+**1. Implementación y Validación de la RNA**: Se codificó una red neuronal `feedforward` con soporte para múltiples capas ocultas, incorporando funciones de activación (`ReLU`, `Tanh`, `Sigmoid`)y esquemas de inicialización de pesos (He y Xavier). Esta fase incluyó la implementación de los algoritmos de propagación hacia adelante y atrás, así como la validación del problema clásico XOR, lo que permitió confirmar la capacidad del modelo para aprender relaciones no lineales. La evidencia de este proceso se encuentra en el `notebooks/01_implementacion_red.ipynb` y en la curva de pérdida en `results/training_curves_xor.png`.
+
+**2. Aplicación a la Detección de Fraude**: Se generó un conjunto de datos sintéticos con características representativas de transacciones financieras reales y se entrenó la RNA, ajustando el umbral de decisión con el oljetivo para maximizar el `F1-Score`. La evaluación del rendimiento se centró en métricas críticas para el sector, como la `precisión`, el `recall` (sensibilidad) y el análisis mediante la matriz de confusión.
+
+**3. Experimentación Comparativa**: Se evaluó el rendimiento de múltiples configuraciones de la RNA, variando la arquitectura, las funciones de activación, tasa de aprendizaje y el npumero de épocas, y se comparó con un modelo de referencia (`baseline`) de **Regresión Logística** implementado con `scikit-learn`, con el fin de validar de manera objetiva la eficacia y limitaciones de la implementación.
 
 ## 2. Resultados de los Experimentos
 
-Los resultados de la fase de experimentación se encuentran detallados en el archivo `results/performance_comparison.csv`. A continuación, se presenta un análisis de los hallazgos más relevantes:
+Los resultados completos de la fase de experimentación se encuentran documentados en el archivo `results/performance_comparison.csv`. A continuación, se presenta un análisis detallado de los hallazgos más relevantes:
 
 ### 2.1. Comparación General de Modelos
 
-El gráfico de barras del **F1-Score** muestra que el modelo `baseline` de **Regresión Logística** superó a todas las configuraciones de la red neuronal.
+El análisis del **F1-Score** evidencia que el modelo `baseline` de **Regresión Logística** obtuvo un rendimiento superior frente a todas las configuraciones evaluadas de la red neuronal.
 
 <img src="../results/f1_comparison.png" alt="f1_comparison" width="800"/>
 
-* **Regresión Logística (Baseline)**: Con un **F1-Score de 0.7778**, este modelo demostró una robusta capacidad para encontrar un equilibrio entre la `precisión` (0.875) y el `recall` (0.700). Su simplicidad y la optimización de los algoritmos de `scikit-learn` le otorgan una ventaja significativa sobre la implementación manual de la RNA para este conjunto de datos.
-* **Mejor Red Neuronal (Arch_3_narrow)**: La arquitectura `[13, 8, 4, 1]` logró el mejor rendimiento entre las RNA, con un **F1-Score de 0.5714**. A pesar de su `recall` bajo (0.40), obtuvo una `precisión` perfecta (1.0), lo que sugiere que las predicciones que realiza son muy confiables, aunque se le escapan muchos fraudes.
+* **Regresión Logística (Baseline)**: Alcanzó un **F1-Score de 0.7778**, mostrando un balance sólido entre `precisión` (0.875) y el `recall` (0.700). Su desempeño se explica por la robustez del modelo y la optimización interna de `scikit-learn`, lo que le otorga ventajas frente a la implementación manual de la RNA para este conjunto de datos. 
+
+* **Mejor Red Neuronal (Arch_3_narrow)**: Corresponde a la arquitectura `[13, 8, 4, 1]`, la cual logró el mejor rendimiento entre las RNA, con un **F1-Score de 0.5714**. Si bien logró una precisión perfecta `(1.0)`, su recall fue limitado `(0.40)`, lo que indica que las predicciones positivas fueron totalmente acertadas, pero una cantidad considerable de fraudes no fue detectada.
 
 ### 2.2. Análisis de Hiperparámetros
 
 La experimentación con los hiperparámetros de la red neuronal reveló lo siguiente:
 
-* **Arquitectura**: Una red más estrecha (`Arch_3_narrow`) funcionó mejor que una más ancha (`Arch_2_wider`), la cual tuvo un rendimiento muy pobre. Esto podría indicar que la complejidad adicional no fue necesaria para las características de los datos sintéticos, llevando a un sobreajuste o a problemas de convergencia.
-* **Función de Activación**: El uso de `ReLU` en las capas ocultas (`Arch_1`) resultó en un mejor rendimiento que el uso de `Tanh` (`Act_Tanh`), lo cual se alinea con la práctica común en redes neuronales profundas para evitar el problema del gradiente desvanecedor.
-* **Tasa de Aprendizaje y Épocas**: Las redes con un `learning_rate` muy bajo (`LR_Low`) o muy alto (`LR_High`) tuvieron un rendimiento inferior. El gráfico `f1_comparison.png` muestra una caída significativa en el rendimiento cuando se usó `LR_High` (0.1), lo que sugiere que este valor era demasiado agresivo, haciendo que el modelo no pudiera converger de manera estable.
+* **Arquitectura**: Las redes más compactas como `Arch_3_narrow`, ofrecieron mejores resultados que configuraciones más anchas, como `Arch_2_wider`, donde el exceso de capacidad pudo favorecer el sobreajuste y dificultar la convergencia.
+  
+* **Función de Activación**: El uso de `ReLU` en las capas ocultas, como`Arch_1`, se asoció a un rendimiento más estable y eficiente en comparación con `Tanh` (`Act_Tanh`),  en línea con la práctica habitual para mitigar problemas de gradiente desvanecido en redes profundas.
+  
+* **Tasa de Aprendizaje y Épocas**: Los resultados muestran que valores intermedios (p. ej., 0.05) favorecen una convergencia estable. Tasas excesivamente bajas, como en `LR_Low`, ralentizaron el aprendizaje sin beneficios significativos, mientras que tasas altas, como en `LR_High` (0.1), provocaron oscilaciones y una caída notable del rendimiento, como se aprecia en `f1_comparison.png`.
 
 ## 3. Matriz de Confusión y Análisis de Métricas
 
@@ -43,23 +49,27 @@ Matriz de confusión Optima
 * **Verdaderos Negativos (TN)**: 9990. Transacciones legítimas identificadas correctamente.
 * **Falsos Positivos (FP)**: 0. Transacciones legítimas marcadas erróneamente como fraude.
 
-El resultado más destacado es la ausencia total de **falsos positivos (FP=0)**. Esto es crucial para el negocio, ya que asegura que la experiencia del usuario no se verá afectada por bloqueos de transacciones legítimas.  
+El resultado más destacado es la ausencia total de **falsos positivos (FP=0)**. Esto es crucial para el negocio, ya que asegura que la experiencia del usuario no se verá afectada por bloqueos de transacciones legítimas. 
 
 ## 4. Conclusión Técnica y Hoja de Ruta
 
-La implementación en `NumPy` fue exitosa para fines educativos, pero los resultados demuestran sus limitaciones en términos de rendimiento y optimización frente a frameworks maduros. Para el proyecto final, se propone la siguiente hoja de ruta:
+La implementación de la red neuronal en `NumPy` cumplió de manera satisfactoria con los objetivos educativos, permitiendo comprender en profundidad los fundamentos de las arquitecturas feedforward, las funciones de activación y los procesos de propagación hacia adelante y hacia atrás. Sin embargo, los resultados obtenidos ponen en evidencia las limitaciones de este enfoque frente a frameworks más maduros, tanto en rendimiento computacional como en capacidad de optimización y escalabilidad para entornos reales.
 
-* **Migración a un Framework**: El modelo debe ser re-implementado en **TensorFlow** o **PyTorch** para aprovechar la aceleración por GPU, el `autodiff` y los optimizadores avanzados (como Adam), que permitirán un entrenamiento más eficiente y estable.
-* **Modelos de Detección de Anomalías**: La siguiente etapa será reemplazar el modelo de clasificación binaria por un **Autoencoder** o un **Isolation Forest**. Un Autoencoder es especialmente adecuado para este problema, ya que aprende a reconstruir los patrones de las transacciones normales y cualquier transacción que no pueda reconstruir (es decir, el fraude) es marcada como una anomalía.
-* **Explicabilidad (XAI)**: Para cumplir con los requisitos regulatorios, se integrarán librerías como **SHAP** para generar valores de explicabilidad. Estos valores permitirán entender por qué el modelo marca una transacción como fraudulenta, proporcionando una herramienta esencial para los analistas de negocio y de riesgo.
+Con base en los hallazgos, se plantea la siguiente hoja de ruta para la evolución del proyecto:
+
+* **Migración a un Framework especializado**: Re-implementar el modelo en **TensorFlow** o **PyTorch** ara aprovechar la aceleración por GPU, el cálculo automático de gradientes (`autodiff`) y el uso de optimizadores avanzados como Adam, lo que permitirá entrenamientos más rápidos, estables y escalables.
+  
+* **Incorporación de Modelos de Detección de Anomalías**: Sustituir o complementar el enfoque de clasificación binaria con técnicas como **Autoencoders** o **Isolation Forest**. Los Autoencoders, en particular, resultan adecuados para aprender el patrón de las transacciones legítimas y detectar desviaciones significativas que puedan corresponder a fraudes.
+  
+* **Integración de Técnicas de Explicabilidad (XAI)**: Implementar librerías como SHAP para generar explicaciones a nivel de instancia sobre las predicciones del modelo. Esto no solo contribuirá al cumplimiento de requisitos regulatorios, sino que también proporcionará a los analistas de riesgo una herramienta para comprender y auditar las decisiones automatizadas del sistema.
+
 
 
 ## 5. Análisis de Resultados
 
 ## 5.1 Resumen ejecutivo
 
-Comparamos varias configuraciones de red neuronal (variando arquitectura y activaciones) contra un baseline de Regresión Logística. El mejor modelo fue la configuración con mayor capacidad (capas ocultas más anchas) y activación ReLU en capas internas con sigmoid en la salida; este modelo ofreció el mejor F1 y un equilibrio razonable entre precisión y recall, superando a la línea base.
-A nivel operativo, el ajuste de umbral de decisión fue determinante para priorizar recall/sensibilidad (minimizar falsos negativos), consistente con el objetivo de negocio en fraude.
+Se evaluaron múltiples configuraciones de redes neuronales, variando tanto la arquitectura como las funciones de activación, y se compararon contra un modelo baseline de Regresión Logística. El mejor desempeño se obtuvo con una arquitectura de mayor capacidad —capas ocultas más anchas— utilizando `ReLU` en las capas intermedias y `sigmoid` en la capa de salida, lo que permitió alcanzar el valor más alto de **F1-Score** y un balance adecuado entre precisión y recall. Desde una perspectiva operativa, el ajuste del umbral de decisión fue un factor determinante para priorizar la sensibilidad del modelo (recall) y así minimizar los falsos negativos, en coherencia con el objetivo de negocio en detección de fraude.
 
 ## 5.2 Comparación de arquitecturas y activaciones
 
@@ -69,7 +79,7 @@ A nivel operativo, el ajuste de umbral de decisión fue determinante para priori
 
 ## 5.3 Curvas de entrenamiento y estabilidad
 
-Las training_curve_*.png muestran reducción de MSE por época, coherente con la estabilización del entrenamiento. Para clasificación, recomendamos además monitorear F1 o Recall en validación e implementar early stopping en el proyecto final para evitar sobreajuste y reducir cómputo.
+Las gráficas `training_curve_*.png` muestran una reducción progresiva del error cuadrático medio (MSE) por época, lo que refleja un entrenamiento estable. No obstante, para tareas de clasificación, resulta recomendable monitorear también métricas como F1 o recall sobre un conjunto de validación, e implementar un mecanismo de early stopping que detenga el entrenamiento en caso de detectarse sobreajuste, optimizando así el uso de recursos computacionales.
 
 ## 5.4 Umbral óptimo y trade-offs de negocio
 
@@ -79,8 +89,7 @@ El gráfico threshold_curves_best.png ilustra el trade-off entre precisión y re
 
 ## 5.5 Matriz de confusión y errores característicos
 
-confusion_matrix_best.png permite cuantificar FP y FN en el punto operativo seleccionado.
-* El umbral óptimo reportado en performance_comparison.csv es el que maximiza F1, pero la operación final puede requerir un umbral diferente, alineado al costo del negocioSi observamos FN aún elevados, proponemos: (i) desplazar umbral hacia mayor recall, (ii) re-ponderar la función objetivo (cost-sensitive), (iii) enriquecer features (ej. secuencias temporales) y (iv) añadir regularización.
+El archivo `confusion_matrix_best.png` permite visualizar de forma cuantitativa los falsos positivos (FP) y falsos negativos (FN) en el punto operativo seleccionado. Si se observan niveles elevados de FN, se recomiendan las siguientes acciones: (i) ajustar el umbral para favorecer el recall, (ii) utilizar funciones de coste sensibles al desbalance de clases (cost-sensitive), (iii) enriquecer el conjunto de características con datos de naturaleza secuencial o temporal y (iv) aplicar técnicas de regularización para mejorar la generalización del modelo.
 
 ## 5.6 Conclusiones prácticas
 * La RNA supera a la Regresión Logística en F1, confirmando que el problema es no lineal.

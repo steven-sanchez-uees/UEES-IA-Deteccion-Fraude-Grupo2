@@ -17,6 +17,8 @@ Los resultados de la fase de experimentación se encuentran detallados en el arc
 
 El gráfico de barras del **F1-Score** muestra que el modelo `baseline` de **Regresión Logística** superó a todas las configuraciones de la red neuronal.
 
+<img src="../results/f1_comparison.png" alt="f1_comparison" width="800"/>
+
 * **Regresión Logística (Baseline)**: Con un **F1-Score de 0.7778**, este modelo demostró una robusta capacidad para encontrar un equilibrio entre la `precisión` (0.875) y el `recall` (0.700). Su simplicidad y la optimización de los algoritmos de `scikit-learn` le otorgan una ventaja significativa sobre la implementación manual de la RNA para este conjunto de datos.
 * **Mejor Red Neuronal (Arch_3_narrow)**: La arquitectura `[13, 8, 4, 1]` logró el mejor rendimiento entre las RNA, con un **F1-Score de 0.5714**. A pesar de su `recall` bajo (0.40), obtuvo una `precisión` perfecta (1.0), lo que sugiere que las predicciones que realiza son muy confiables, aunque se le escapan muchos fraudes.
 

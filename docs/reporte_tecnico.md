@@ -36,6 +36,7 @@ En un problema de detección de fraude, la `precisión` y el `recall` son más i
 
 Matriz de confusión Optima
 <img src="../results/matriz_confusion_optima.png" alt="matriz_confusion_optima" width="800"/>
+
 * **Verdaderos Positivos (TP)**: 5. Casos de fraude detectados correctamente.
 * **Falsos Negativos (FN)**: 5. Casos de fraude que el modelo no detectó.
 * **Verdaderos Negativos (TN)**: 9990. Transacciones legítimas identificadas correctamente.

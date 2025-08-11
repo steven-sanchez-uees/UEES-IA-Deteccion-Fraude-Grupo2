@@ -2,9 +2,10 @@
 
 ## Resumen
 
-Este proyecto aborda un problema crítico en el sector de las fintech: la detección de fraude en transacciones digitales. El desafío principal es doble: por un lado, minimizar las pérdidas millonarias causadas por transacciones fraudulentas y, por otro, evitar los falsos positivos que degradan la experiencia del usuario. Un modelo que marca como sospechosa una transacción legítima puede generar frustración y hacer que los clientes dejen de usar el servicio. Por esta razón, el proyecto busca un equilibrio entre la detección efectiva del fraude y la minimización de las interrupciones para los usuarios legítimos.
+Este proyecto aborda un desafío clave para el sector fintech: detectar fraudes en transacciones digitales minimizando el impacto sobre clientes legítimos.
+El objetivo es lograr un equilibrio entre la máxima detección de fraudes y la mínima generación de falsos positivos, ya que cada operación legítima bloqueada deteriora la experiencia del usuario y puede generar pérdidas de clientes.
 
-La solución que exploramos aquí es la implementación desde cero de una **Red Neuronal Artificial (RNA)**. Este enfoque nos ha permitido un entendimiento profundo y práctico de los mecanismos internos de estos modelos, como la inicialización de pesos, las funciones de activación y los procesos de propagación hacia adelante y atrás.
+La solución desarrollada es un prototipo de Red Neuronal Artificial (RNA) implementada íntegramente en NumPy, lo que permitió un control total sobre el flujo de datos, inicialización de pesos, funciones de activación y procesos de entrenamiento. Este enfoque garantiza un entendimiento profundo de la lógica interna del modelo y sienta las bases para una transición a entornos productivos.
 
 ## Estructura del Proyecto
 La estructura del repositorio está diseñada para ser modular y escalable, facilitando la reproducibilidad de los experimentos y la organización de los componentes.
@@ -53,6 +54,12 @@ La metodología del proyecto se centra en un flujo de trabajo claro:
 
 Los resultados detallados de estos experimentos, incluyendo las métricas de rendimiento y las matrices de confusión, se encuentran en el `informe_tecnico.md` y en la carpeta `results/`. El análisis final de estos resultados es crucial para determinar la viabilidad y las limitaciones de nuestra implementación.
 
+## Hallazgos Claves
+* El baseline de Regresión Logística superó a las configuraciones actuales de la RNA en F1-Score, gracias a su simplicidad y optimización interna.
+* La mejor RNA alcanzó precisión perfecta (1.0) pero con recall limitado, detectando menos fraudes de los deseados.
+* La optimización del umbral de decisión se confirmó como un factor crítico para balancear costos de falsos negativos y falsos positivos.
+* Arquitecturas más anchas y ReLU en capas ocultas mejoran la capacidad de detección, pero requieren regularización y early stopping para evitar sobreajuste.
+
 ## Limitaciones y Escalabilidad
 
 Si bien el prototipo es funcional y didáctico, presenta limitaciones para un despliegue productivo:
@@ -64,11 +71,11 @@ Si bien el prototipo es funcional y didáctico, presenta limitaciones para un de
 ## Plan de transición a frameworks avanzados
 
 Para el proyecto final, que trabajará con datos reales de detección de fraude en telecomunicaciones con alto volumen y necesidad de respuesta rápida, se plantea la migración a TensorFlow o PyTorch, lo que permitirá:
-* Aprovechar GPU/TPU para acelerar el entrenamiento.
-* Utilizar autograd para backprop automático y evitar errores manuales.
-* Implementar arquitecturas más complejas (modelos híbridos con embeddings y datos numéricos).
-* Integrar pipelines robustos para el manejo y preprocesamiento eficiente de datos.
-* Aplicar técnicas avanzadas de regularización y optimización.
+1. **Migración a TensorFlow/PyTorch** para aprovechar GPU, autograd y optimizadores avanzados.
+2. **Arquitecturas avanzadas** como Autoencoders o modelos híbridos para detección de anomalías complejas.
+3. **Integración de XAI (Explainable AI)** con librerías como SHAP para justificar predicciones y cumplir requisitos regulatorios.
+4. **Pipelines robustos** para ingesta, limpieza y preprocesamiento de datos en tiempo real.
+5. **Regularización y validación avanzada** para mejorar generalización y estabilidad.
 
 ## Hoja de Ruta para Mejoras Continuas
 

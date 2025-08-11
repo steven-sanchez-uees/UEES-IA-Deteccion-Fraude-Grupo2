@@ -53,10 +53,6 @@ La metodología del proyecto se centra en un flujo de trabajo claro:
 
 Los resultados detallados de estos experimentos, incluyendo las métricas de rendimiento y las matrices de confusión, se encuentran en el `informe_tecnico.md` y en la carpeta `results/`. El análisis final de estos resultados es crucial para determinar la viabilidad y las limitaciones de nuestra implementación.
 
-## Conexión con Proyecto Final y Hoja de Ruta de Mejoras
-
-La implementación actual de la red neuronal fue desarrollada desde cero utilizando únicamente NumPy, lo que permitió comprender en detalle cada etapa del proceso: inicialización de pesos con métodos Xavier/He, forward propagation, cálculo de pérdidas, backpropagation manual y optimización mediante gradient descent con ajuste de umbrales para mejorar la detección de fraude. Este enfoque es ideal como prueba de concepto académica y para prototipos en datasets sintéticos o de tamaño reducido, sirviendo como base sólida para el proyecto final.
-
 ## Limitaciones y Escalabilidad
 
 Si bien el prototipo es funcional y didáctico, presenta limitaciones para un despliegue productivo:
@@ -75,6 +71,8 @@ Para el proyecto final, que trabajará con datos reales de detección de fraude 
 * Aplicar técnicas avanzadas de regularización y optimización.
 
 ## Hoja de Ruta para Mejoras Continuas
+
+La implementación actual de la red neuronal fue desarrollada desde cero utilizando únicamente NumPy, lo que permitió comprender en detalle cada etapa del proceso: inicialización de pesos con métodos Xavier/He, forward propagation, cálculo de pérdidas, backpropagation manual y optimización mediante gradient descent con ajuste de umbrales para mejorar la detección de fraude. Este enfoque es ideal como prueba de concepto académica y para prototipos en datasets sintéticos o de tamaño reducido, sirviendo como base sólida para el proyecto final.
 
 Este proyecto es una prueba de concepto. Para llevarlo a un entorno de producción, se necesitarían mejoras significativas. El siguiente paso en la hoja de ruta incluye:
 * **Migración a Frameworks (TensorFlow/PyTorch)**: Para aprovechar la aceleración por GPU y las optimizaciones de los frameworks modernos.

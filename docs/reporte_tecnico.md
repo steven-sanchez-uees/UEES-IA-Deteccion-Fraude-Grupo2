@@ -32,10 +32,8 @@ La experimentación con los hiperparámetros de la red neuronal reveló lo sigui
 
 En un problema de detección de fraude, la `precisión` y el `recall` son más importantes que la `accuracy` global. La matriz de confusión del modelo de Regresión Logística con el umbral óptimo (0.20) ilustra mejor su desempeño (ver `results/metrics_optimal_threshold.csv` y `results/matriz_confusion_optima.png`).
 
-- [Matriz de confusión Optima]
-- <img src="./results/matriz_confusion_optima.png" alt="matriz_confusion_optima" width="800"/>
-
-
+* [Matriz de confusión Optima]
+* <img src="./results/matriz_confusion_optima.png" alt="matriz_confusion_optima" width="800"/>
 * **Verdaderos Positivos (TP)**: 5. Casos de fraude detectados correctamente.
 * **Falsos Negativos (FN)**: 5. Casos de fraude que el modelo no detectó.
 * **Verdaderos Negativos (TN)**: 9990. Transacciones legítimas identificadas correctamente.

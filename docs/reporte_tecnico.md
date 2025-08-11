@@ -28,12 +28,14 @@ La experimentación con los hiperparámetros de la red neuronal reveló lo sigui
 * **Función de Activación**: El uso de `ReLU` en las capas ocultas (`Arch_1`) resultó en un mejor rendimiento que el uso de `Tanh` (`Act_Tanh`), lo cual se alinea con la práctica común en redes neuronales profundas para evitar el problema del gradiente desvanecedor.
 * **Tasa de Aprendizaje y Épocas**: Las redes con un `learning_rate` muy bajo (`LR_Low`) o muy alto (`LR_High`) tuvieron un rendimiento inferior. El gráfico `f1_comparison.png` muestra una caída significativa en el rendimiento cuando se usó `LR_High` (0.1), lo que sugiere que este valor era demasiado agresivo, haciendo que el modelo no pudiera converger de manera estable.
 
+
+
 ## 3. Matriz de Confusión y Análisis de Métricas
 
 En un problema de detección de fraude, la `precisión` y el `recall` son más importantes que la `accuracy` global. La matriz de confusión del modelo de Regresión Logística con el umbral óptimo (0.20) ilustra mejor su desempeño (ver `results/metrics_optimal_threshold.csv` y `results/matriz_confusion_optima.png`).
 
 - [Matriz de confusión Optima]
-- <img src="../results/matriz_confusion_optima.png" alt="matriz_confusion_optima" width="800"/>
+<img src="../results/matriz_confusion_optima.png" alt="matriz_confusion_optima" width="800"/>
 * **Verdaderos Positivos (TP)**: 5. Casos de fraude detectados correctamente.
 * **Falsos Negativos (FN)**: 5. Casos de fraude que el modelo no detectó.
 * **Verdaderos Negativos (TN)**: 9990. Transacciones legítimas identificadas correctamente.

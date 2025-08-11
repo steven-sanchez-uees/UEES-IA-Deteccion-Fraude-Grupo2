@@ -32,7 +32,13 @@ La estructura del repositorio está diseñada para ser modular y escalable, faci
 │   ├── matriz_confusion_optima.png
 │   ├── metrics_optimal_threshold.csv
 │   ├── performance_comparison.csv
-│   ├── training_curve_*.png
+│   ├── training_curve_LR_Low.png
+│   ├── training_curve_LR_High.png
+│   ├── training_curve_Epochs_High.png
+│   ├── training_curve_Arch_3_narrow.png
+│   ├── training_curve_Arch_2_wider.png
+│   ├── training_curve_Arch_1.png
+│   ├── training_curve_Act_Tanh.png
 │   └── training_curves_xor.png
 │
 └── src/

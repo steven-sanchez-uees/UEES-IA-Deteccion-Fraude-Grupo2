@@ -41,7 +41,7 @@ En un problema de detección de fraude, la `precisión` y el `recall` son más i
 * **Verdaderos Negativos (TN)**: 9990. Transacciones legítimas identificadas correctamente.
 * **Falsos Positivos (FP)**: 0. Transacciones legítimas marcadas erróneamente como fraude.
 
-El resultado más destacado es la ausencia total de **falsos positivos (FP=0)**. Esto es crucial para el negocio, ya que asegura que la experiencia del usuario no se verá afectada por bloqueos de transacciones legítimas.
+El resultado más destacado es la ausencia total de **falsos positivos (FP=0)**. Esto es crucial para el negocio, ya que asegura que la experiencia del usuario no se verá afectada por bloqueos de transacciones legítimas.  
 
 ## 4. Conclusión Técnica y Hoja de Ruta
 

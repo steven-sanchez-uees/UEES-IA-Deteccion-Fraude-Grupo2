@@ -30,7 +30,7 @@ La experimentación con los hiperparámetros de la red neuronal reveló lo sigui
 * **Función de Activación**: El uso de `ReLU` en las capas ocultas (`Arch_1`) resultó en un mejor rendimiento que el uso de `Tanh` (`Act_Tanh`), lo cual se alinea con la práctica común en redes neuronales profundas para evitar el problema del gradiente desvanecedor.
 * **Tasa de Aprendizaje y Épocas**: Las redes con un `learning_rate` muy bajo (`LR_Low`) o muy alto (`LR_High`) tuvieron un rendimiento inferior. El gráfico `f1_comparison.png` muestra una caída significativa en el rendimiento cuando se usó `LR_High` (0.1), lo que sugiere que este valor era demasiado agresivo, haciendo que el modelo no pudiera converger de manera estable.
 
-<img src="../results/performance_comparison.csv" alt="performance_comparison" width="800"/>
+<link src="../results/performance_comparison.csv" alt="performance_comparison" width="800"/>
 
 ## 3. Matriz de Confusión y Análisis de Métricas
 
